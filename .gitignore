@@ -196,3 +196,5 @@ cython_debug/
 
 workspace/**.xml.state
 workspace/**.trees
+
+*.sif
