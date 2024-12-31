@@ -1,0 +1,20 @@
+FROM openjdk:8
+
+ARG APP_VERSION
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV USER root
+
+ENV PATH=/root/beast/bin:$PATH
+
+WORKDIR /root/
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl git cmake build-essential autoconf automake libtool pkg-config \
+    && curl -fsSLO https://github.com/CompEvol/beast2/releases/download/${APP_VERSION}/BEAST.${APP_VERSION}.Linux.x86.tgz \
+    && tar fxz BEAST.${APP_VERSION}.Linux.x86.tgz \
+    && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/downloaded_packages

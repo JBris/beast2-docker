@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+
+  beast2:
+    image: ghcr.io/jbris/beast2:${APP_VERSION}
+    build:
+      context: .
+      dockerfile: Dockerfile.${APP_VERSION}
+      args:
+        APP_VERSION: $APP_VERSION
