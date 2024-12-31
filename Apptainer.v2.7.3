@@ -8,4 +8,4 @@ From: ghcr.io/jbris/beast2:v2.7.3
     This is an image to run BEAST2.
 
 %runscript
-    exec /usr/local/bin/beast "$@"
+    exec beast -packagedir /usr/local/lib "$@"
