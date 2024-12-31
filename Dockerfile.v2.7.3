@@ -15,7 +15,7 @@ RUN apt-get update \
     && rm BEAST.${APP_VERSION}.Linux.x86.tgz \
     && mv beast /usr/bin \
     && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
-    cd beagle-lib \
+    && cd beagle-lib \
     && mkdir build \
     && cd build \
     && cmake -DBUILD_SSE=OFF -DBUILD=_CUDA=OFF .. \
