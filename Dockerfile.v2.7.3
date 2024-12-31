@@ -13,8 +13,7 @@ RUN apt-get update \
     && curl -fsSLO https://github.com/CompEvol/beast2/releases/download/${APP_VERSION}/BEAST.${APP_VERSION}.Linux.x86.tgz \
     && tar fxz BEAST.${APP_VERSION}.Linux.x86.tgz \
     && rm BEAST.${APP_VERSION}.Linux.x86.tgz \
-    && mv beast/* /usr/bin \ 
-    && rm -rf beast \
+    && mv beast /usr/bin \
     # && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
