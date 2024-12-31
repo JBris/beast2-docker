@@ -6,12 +6,16 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV USER root
 
+ENV DISPLAY :0.0
+
 ENV PATH=/root/beast/bin:$PATH
 
 WORKDIR /root/
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl git cmake build-essential autoconf automake libtool pkg-config \
+    && apt-get install -y --no-install-recommends curl git cmake build-essential \
+    autoconf automake libtool pkg-config libglpk-dev cmake libnng-dev \ 
+    libmbedtls-dev liblzma-dev libbz2-dev libxrender1 libxtst6 libxi6 \
     && curl -fsSLO https://github.com/CompEvol/beast2/releases/download/${APP_VERSION}/BEAST.${APP_VERSION}.Linux.x86.tgz \
     && tar fxz BEAST.${APP_VERSION}.Linux.x86.tgz \
     && rm BEAST.${APP_VERSION}.Linux.x86.tgz \
