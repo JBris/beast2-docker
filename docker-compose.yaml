@@ -9,5 +9,8 @@ services:
       dockerfile: Dockerfile.${APP_VERSION}
       args:
         APP_VERSION: $APP_VERSION
+    working_dir: /usr/local/workspace
     ports:
       - 5900:5900
+    volumes:
+      - ./workspace:/usr/local/workspace:rwx
