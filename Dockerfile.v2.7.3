@@ -23,7 +23,13 @@ RUN apt-get update \
     && rm -rf /tmp/downloaded_packages \
     && packagemanager -dir /usr/local/lib -add BADTRIP \
     && packagemanager -dir /usr/local/lib -add PoMo \
-    && packagemanager -dir /usr/local/lib -add phylodynamics 
+    && packagemanager -dir /usr/local/lib -add phylodynamics \
+    && packagemanager -dir /usr/local/lib -add BEAST_CLASSIC \ 
+    && packagemanager -dir /usr/local/lib -add Babel \ 
+    && packagemanager -dir /usr/local/lib -add MultiTypeTree \
+    && packagemanager -dir /usr/local/lib -add PhyDyn \
+    && packagemanager -dir /usr/local/lib -add Recombination \
+    && packagemanager -dir /usr/local/lib -add ReMASTER
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
