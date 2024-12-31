@@ -27,9 +27,9 @@ RUN apt-get update \
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-RUN chmod -R +x /usr/bin \
-    && chmod -R +x /usr/jre \
-    && chmod -R +rwx /usr/lib \
+RUN chmod -R +x /usr/local/bin \
+    && chmod -R +x /usr/local/jre \
+    && chmod -R +rwx /usr/local/lib \
     && chmod -R +rwx /usr/local/workspace
 
 WORKDIR /usr/local/workspace
