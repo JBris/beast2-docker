@@ -4,13 +4,7 @@ ARG APP_VERSION
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV USER root
-
-ENV DISPLAY :0.0
-
-ENV PATH=/root/beast/bin:$PATH
-
-WORKDIR /root/
+WORKDIR /usr/bin
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl git cmake build-essential \
@@ -19,7 +13,9 @@ RUN apt-get update \
     && curl -fsSLO https://github.com/CompEvol/beast2/releases/download/${APP_VERSION}/BEAST.${APP_VERSION}.Linux.x86.tgz \
     && tar fxz BEAST.${APP_VERSION}.Linux.x86.tgz \
     && rm BEAST.${APP_VERSION}.Linux.x86.tgz \
-    && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
+    && mv beast/bin/* /usr/bin \
+    # && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/downloaded_packages
+    && rm -rf /tmp/downloaded_packages \
+    && chmod -R +x /usr/bin 
