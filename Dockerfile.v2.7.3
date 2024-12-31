@@ -14,12 +14,22 @@ RUN apt-get update \
     && tar fxz BEAST.${APP_VERSION}.Linux.x86.tgz \
     && rm BEAST.${APP_VERSION}.Linux.x86.tgz \
     && mv beast /usr/bin \
-    # && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
+    && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
+    cd beagle-lib \
+    && mkdir build \
+    && cd build \
+    && cmake -DBUILD_SSE=OFF -DBUILD=_CUDA=OFF .. \
+    && make install \
+    && ldconfig \
+    && cd /usr \
+    && rm -rf beagle-lib \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/downloaded_packages \
     && chmod -R +x /usr/bin 
 
-WORKDIR /usr/bin
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+WORKDIR /usr/bin/beast
 
 EXPOSE 5900
