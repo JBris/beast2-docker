@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr
 
-COPY workspace /usr/local/
+COPY workspace /usr/local/workspace
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl git cmake build-essential \
