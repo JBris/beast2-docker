@@ -11,7 +11,9 @@ WORKDIR /usr
 COPY workspace /usr/local/workspace
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH \
-    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 
+    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
+    JAVA_AWT_LIBRARY=/usr/lib/jvm/java-17-openjdk-amd64/lib/libjawt.so \
+    JAVA_AWT_INCLUDE_PATH=/usr/lib/jvm/java-17-openjdk-amd64/include
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl git cmake build-essential \
@@ -24,15 +26,15 @@ RUN apt-get update \
     && mv beast/lib/* /usr/local/lib \
     && mv beast/jre /usr/local \
     && rm -rf beast \
-    # && git clone --depth=1 --branch=${BEAGLE_VERSION} https://github.com/beagle-dev/beagle-lib.git \
-    # && cd /usr/beagle-lib \
-    # && mkdir build \
-    # && cd build \
-    # && cmake .. \
-    # && make install \
-    # && ldconfig \
-    # && cd /usr \
-    # && rm -rf /usr/beagle-lib \
+    && git clone --depth=1 --branch=${BEAGLE_VERSION} https://github.com/beagle-dev/beagle-lib.git \
+    && cd /usr/beagle-lib \
+    && mkdir build \
+    && cd build \
+    && cmake .. \
+    && make install \
+    && ldconfig \
+    && cd /usr \
+    && rm -rf /usr/beagle-lib \
     && packagemanager -add BADTRIP -dir /usr/local/lib \
     && packagemanager -add PoMo -dir /usr/local/lib \
     && packagemanager -add phylodynamics -dir /usr/local/lib \
