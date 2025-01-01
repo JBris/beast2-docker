@@ -10,8 +10,6 @@ COPY workspace /usr/local/workspace
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-ENV BEAST_PACKAGE_PATH=/usr/local/lib
-
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl git cmake build-essential \
     autoconf automake libtool pkg-config libglpk-dev cmake libnng-dev openjdk-17-jre \ 
@@ -39,6 +37,8 @@ RUN apt-get update \
     && chmod -R +x /usr/local/jre \
     && chmod -R +rwx /usr/local/lib \
     && chmod -R +rwx /usr/local/workspace
+
+ENV BEAST_PACKAGE_PATH=/usr/local/lib
 
 WORKDIR /usr/local/workspace
 
