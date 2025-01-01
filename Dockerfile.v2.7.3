@@ -21,15 +21,15 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/downloaded_packages \
-    && packagemanager -dir /usr/local/lib -add BADTRIP \
-    && packagemanager -dir /usr/local/lib -add PoMo \
-    && packagemanager -dir /usr/local/lib -add phylodynamics 
-# && packagemanager -dir /usr/local/lib -add BEAST_CLASSIC \ 
-# && packagemanager -dir /usr/local/lib -add Babel \ 
-# && packagemanager -dir /usr/local/lib -add MultiTypeTree \
-# && packagemanager -dir /usr/local/lib -add PhyDyn \
-# && packagemanager -dir /usr/local/lib -add Recombination \
-# && packagemanager -dir /usr/local/lib -add ReMASTER
+    && packagemanager -useAppDir -add BADTRIP \
+    && packagemanager -useAppDir -add PoMo \
+    && packagemanager -useAppDir -add phylodynamics 
+# && packagemanager -useAppDir -add BEAST_CLASSIC \ 
+# && packagemanager -useAppDir -add Babel \ 
+# && packagemanager -useAppDir -add MultiTypeTree \
+# && packagemanager -useAppDir -add PhyDyn \
+# && packagemanager -useAppDir -add Recombination \
+# && packagemanager -useAppDir -add ReMASTER
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
@@ -42,4 +42,4 @@ WORKDIR /usr/local/workspace
 
 EXPOSE 5900
 
-CMD [ "beast", "-packagedir", "/usr/local/lib"]
+CMD [ "beast" ]
