@@ -1,0 +1,33 @@
+<!-- SEIR tree simulation (deterministic coalescent approximation) with
+     punctual sampling events. -->
+
+<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+    <run spec="Simulator" nSims="1">
+        <simulate spec="SimulatedTree" id="SIRTree">
+            <trajectory spec="DeterministicTrajectory" id="SIRTrajectory"
+                        maxTime="20"
+                        endsWhen="I&lt;1 &amp;&amp; S&lt;500">
+                <population spec="RealParameter" id="S" value="1000"/>
+                <population spec="RealParameter" id="I" value="1"/>
+                <population spec="RealParameter" id="E" value="0"/>
+                <population spec="RealParameter" id="R" value="0"/>
+                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+                <reaction spec="Reaction" rate="0.01"> I + S -> I + E </reaction>
+                <reaction spec="Reaction" rate="1"> E -> I </reaction>
+                <reaction spec="Reaction" rate="1"> I -> R </reaction>
+                <reaction spec="PunctualReaction" n="5" times="5 6 7 8 9"> I -> sample </reaction>
+            </trajectory>
+        </simulate>
+
+        <logger spec="Logger" fileName="$(filebase).traj">
+            <log idref="SIRTrajectory"/>
+        </logger>
+        <logger spec="Logger" mode="tree" fileName="$(filebase).typed.tree">
+            <log spec="TypedTreeLogger" tree="@SIRTree"/>
+        </logger>
+        <logger spec="Logger" fileName="$(filebase).tree">
+            <log idref="SIRTree"/>
+        </logger>
+    </run>
+</beast>
