@@ -1,3 +1,3 @@
-# beast2-docker
+# BEAST 2 Docker and Apptainer
 
-Docker setup for BEAST 2 software
+Docker and Apptainer setup for the BEAST 2 software 
