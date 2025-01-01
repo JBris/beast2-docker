@@ -10,9 +10,18 @@ COPY workspace /usr/local/workspace
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+
+# set(JAVA_AWT_LIBRARY "$ENV{JAVA_HOME}/lib/libjawt.so")
+# set(JAVA_JVM_LIBRARY "$ENV{JAVA_HOME}/lib/server/libjvm.so")
+
+# set(JAVA_INCLUDE_PATH "$ENV{JAVA_HOME}/include")
+# set(JAVA_INCLUDE_PATH2 "$ENV{JAVA_HOME}/include/linux")
+# set(JAVA_AWT_INCLUDE_PATH "$ENV{JAVA_HOME}/include")
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl git cmake build-essential \
-    autoconf automake libtool pkg-config libglpk-dev cmake libnng-dev openjdk-17-jre \ 
+    autoconf automake libtool pkg-config libglpk-dev cmake libnng-dev openjdk-17-jdk-headless \ 
     libmbedtls-dev liblzma-dev libbz2-dev libxrender1 libxtst6 libxi6 \
     && curl -fsSLO https://github.com/CompEvol/beast2/releases/download/${APP_VERSION}/BEAST.${APP_VERSION}.Linux.x86.tgz \
     && tar fxz BEAST.${APP_VERSION}.Linux.x86.tgz \
@@ -25,13 +34,14 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/downloaded_packages \
     && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
-    && cd beagle-lib \
+    && cd /usr/beagle-lib \
     && mkdir build \
     && cd build \
     && cmake -DBUILD_SSE=OFF -DBUILD=_CUDA=OFF .. \
     && make install \
     && ldconfig \
-    && rm -rf beagle-lib \
+    && cd /usr \
+    && rm -rf /usr/beagle-lib \
     && packagemanager -add BADTRIP -dir /usr/local/lib \
     && packagemanager -add PoMo -dir /usr/local/lib \
     && packagemanager -add phylodynamics -dir /usr/local/lib \
