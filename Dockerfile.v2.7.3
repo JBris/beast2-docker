@@ -30,9 +30,6 @@ RUN apt-get update \
     && mv beast/lib/* /usr/local/lib \
     && mv beast/jre /usr/local \
     && rm -rf beast \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/downloaded_packages \
     && git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git \
     && cd /usr/beagle-lib \
     && mkdir build \
@@ -54,7 +51,10 @@ RUN apt-get update \
     && chmod -R +x /usr/local/bin \
     && chmod -R +x /usr/local/jre \
     && chmod -R +rwx /usr/local/lib \
-    && chmod -R +rwx /usr/local/workspace
+    && chmod -R +rwx /usr/local/workspace \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/downloaded_packages 
 
 ENV BEAST_PACKAGE_PATH=/usr/local/lib
 
