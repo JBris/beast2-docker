@@ -1,4 +1,4 @@
-FROM ubuntu:jammy-20240911.1
+FROM eclipse-temurin:17-jdk-jammy
 
 ARG APP_VERSION
 
@@ -26,11 +26,10 @@ RUN apt-get update \
     && rm -rf beast \
     && git clone --depth=1 --branch=${BEAGLE_VERSION} https://github.com/beagle-dev/beagle-lib.git \
     && cd /usr/beagle-lib \
-    && ./autogen.sh \
-    && ./configure --disable-sse --disable-march-native --prefix=/usr/local \
-    && make \
+    && mkdir build \
+    && cd build \
+    && cmake -DBUILD_SSE=OFF -DBUILD=_CUDA=OFF .. \
     && make install \
-    && make check \
     && ldconfig \
     && cd /usr \
     && rm -rf /usr/beagle-lib \
