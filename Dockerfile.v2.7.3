@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM ubuntu:jammy-20240911.1
 
 ARG APP_VERSION
 
@@ -28,7 +28,7 @@ RUN apt-get update \
     && cd /usr/beagle-lib \
     && mkdir build \
     && cd build \
-    && cmake -DBUILD_SSE=OFF -DBUILD=_CUDA=OFF .. \
+    && cmake .. \
     && make install \
     && ldconfig \
     && cd /usr \
