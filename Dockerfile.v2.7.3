@@ -10,6 +10,8 @@ COPY workspace /usr/local/workspace
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
+ENV BEAST_PACKAGE_PATH=/usr/local/lib
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl git cmake build-essential \
     autoconf automake libtool pkg-config libglpk-dev cmake libnng-dev openjdk-17-jre \ 
@@ -27,15 +29,13 @@ RUN apt-get update \
     && packagemanager -add BADTRIP -dir /usr/local/lib \
     && packagemanager -add PoMo -dir /usr/local/lib \
     && packagemanager -add phylodynamics -dir /usr/local/lib \
-    && packagemanager -add PhyDyn -dir /usr/local/lib
-# && packagemanager -add BEAST_CLASSIC \ 
-# && packagemanager -add Babel \ 
-# && packagemanager -add MultiTypeTree \
-#  \
-# && packagemanager -add Recombination \
-# && packagemanager -add ReMASTER
-
-RUN chmod -R +x /usr/local/bin \
+    && packagemanager -add PhyDyn -dir /usr/local/lib \
+    && packagemanager -add BEAST_CLASSIC -dir /usr/local/lib \
+    && packagemanager -add Babel -dir /usr/local/lib \
+    && packagemanager -add MultiTypeTree -dir /usr/local/lib \
+    && packagemanager -add Recombination -dir /usr/local/lib \
+    && packagemanager -add ReMASTER -dir /usr/local/lib \
+    && chmod -R +x /usr/local/bin \
     && chmod -R +x /usr/local/jre \
     && chmod -R +rwx /usr/local/lib \
     && chmod -R +rwx /usr/local/workspace
