@@ -8,9 +8,9 @@ WORKDIR /usr
 
 COPY workspace /usr/local/workspace
 
-ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH \
+    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
+    JAVA_AWT_LIBRARY=/usr/lib/jvm/java-17-openjdk-amd64/lib/libjawt.so
 
 # set(JAVA_AWT_LIBRARY "$ENV{JAVA_HOME}/lib/libjawt.so")
 # set(JAVA_JVM_LIBRARY "$ENV{JAVA_HOME}/lib/server/libjvm.so")
