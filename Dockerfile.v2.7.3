@@ -8,6 +8,8 @@ WORKDIR /usr
 
 COPY workspace /usr/local/workspace
 
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl git cmake build-essential \
     autoconf automake libtool pkg-config libglpk-dev cmake libnng-dev openjdk-17-jre \ 
@@ -18,20 +20,20 @@ RUN apt-get update \
     && mv beast/bin/* /usr/local/bin \
     && mv beast/lib/* /usr/local/lib \
     && mv beast/jre /usr/local \
+    && rm -rf beast \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/downloaded_packages \
-    && packagemanager -useAppDir -add BADTRIP \
-    && packagemanager -useAppDir -add PoMo \
-    && packagemanager -useAppDir -add phylodynamics 
-# && packagemanager -useAppDir -add BEAST_CLASSIC \ 
-# && packagemanager -useAppDir -add Babel \ 
-# && packagemanager -useAppDir -add MultiTypeTree \
-# && packagemanager -useAppDir -add PhyDyn \
-# && packagemanager -useAppDir -add Recombination \
-# && packagemanager -useAppDir -add ReMASTER
-
-ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+    && packagemanager -add BADTRIP -dir /usr/local/lib \
+    && packagemanager -add PoMo -dir /usr/local/lib \
+    && packagemanager -add phylodynamics -dir /usr/local/lib \
+    && packagemanager -add PhyDyn -dir /usr/local/lib
+# && packagemanager -add BEAST_CLASSIC \ 
+# && packagemanager -add Babel \ 
+# && packagemanager -add MultiTypeTree \
+#  \
+# && packagemanager -add Recombination \
+# && packagemanager -add ReMASTER
 
 RUN chmod -R +x /usr/local/bin \
     && chmod -R +x /usr/local/jre \
