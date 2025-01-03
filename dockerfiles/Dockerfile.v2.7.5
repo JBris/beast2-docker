@@ -4,6 +4,8 @@ ARG APP_VERSION
 
 ARG BEAGLE_VERSION
 
+ARG TRACER_VERSION
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr
@@ -26,6 +28,14 @@ RUN apt-get update \
     && mv beast/lib/* /usr/local/lib \
     && mv beast/jre /usr/local \
     && rm -rf beast \
+    && mkdir tracer \
+    && cd tracer \
+    && curl -fsSLO https://github.com/beast-dev/tracer/releases/download/${TRACER_VERSION}/Tracer_${TRACER_VERSION}.tgz \
+    && tar fxz Tracer_${TRACER_VERSION}.tgz \
+    && mv bin/* /usr/local/bin \
+    && mv lib/* /usr/local/lib \
+    && cd .. \
+    && rm -rf tracer \
     && git clone --depth=1 --branch=${BEAGLE_VERSION} https://github.com/beagle-dev/beagle-lib.git \
     && cd /usr/beagle-lib \
     && mkdir build \
