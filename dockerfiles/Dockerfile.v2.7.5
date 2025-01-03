@@ -6,6 +6,8 @@ ARG BEAGLE_VERSION
 
 ARG TRACER_VERSION
 
+ARG FIGTREE_VERSION
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /usr
@@ -36,6 +38,13 @@ RUN apt-get update \
     && mv lib/* /usr/local/lib \
     && cd .. \
     && rm -rf tracer \
+    && curl -fsSLO https://github.com/rambaut/figtree/releases/download/${FIGTREE_VERSION}/FigTree_${FIGTREE_VERSION}.tgz \
+    && tar fxz FigTree_${FIGTREE_VERSION}.tgz \
+    && rm FigTree_${FIGTREE_VERSION}.tgz \
+    && mv FigTree_${FIGTREE_VERSION}/lib/figtree.jar /usr/local/lib \
+    && rm -rf FigTree_${FIGTREE_VERSION} \
+    && echo 'java -jar /usr/local/lib/figtree.jar' > figtree \
+    && mv figtree /usr/local/bin \
     && git clone --depth=1 --branch=${BEAGLE_VERSION} https://github.com/beagle-dev/beagle-lib.git \
     && cd /usr/beagle-lib \
     && mkdir build \

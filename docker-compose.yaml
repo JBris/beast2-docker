@@ -11,6 +11,7 @@ services:
         APP_VERSION: $APP_VERSION
         BEAGLE_VERSION: $BEAGLE_VERSION
         TRACER_VERSION: $TRACER_VERSION
+        FIGTREE_VERSION: $FIGTREE_VERSION
     working_dir: /usr/local/workspace
     ports:
       - 5900:5900
