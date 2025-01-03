@@ -45,8 +45,10 @@ RUN apt-get update \
     && packagemanager -add Recombination -dir /usr/local/lib \
     && packagemanager -add ReMASTER -dir /usr/local/lib \
     && packagemanager -add feast -dir /usr/local/lib \
+    && packagemanager -add ORC -dir /usr/local/lib \
+    && packagemanager -add starbeast3 -dir /usr/local/lib \
     && chmod -R +x /usr/local/bin \
-    && chmod -R +x /usr/local/jre \
+    && chmod -R +x /usr/local/jre \  
     && chmod -R +rwx /usr/local/lib \
     && chmod -R +rwx /usr/local/workspace \
     && apt-get clean \
