@@ -1,0 +1,64 @@
+FROM ubuntu:jammy-20240911.1
+
+ARG APP_VERSION
+
+ARG BEAGLE_VERSION
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /usr
+
+COPY workspace /usr/local/workspace
+
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH \
+    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
+    JAVA_AWT_LIBRARY=/usr/lib/jvm/java-17-openjdk-amd64/lib/libjawt.so \
+    JAVA_AWT_INCLUDE_PATH=/usr/lib/jvm/java-17-openjdk-amd64/include
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl git cmake build-essential \
+    autoconf automake libtool pkg-config libglpk-dev cmake libnng-dev openjdk-17-jdk \ 
+    libmbedtls-dev liblzma-dev libbz2-dev libxrender1 libxtst6 libxi6 \
+    && curl -fsSLO https://github.com/CompEvol/beast2/releases/download/${APP_VERSION}/BEAST.${APP_VERSION}.Linux.x86.tgz \
+    && tar fxz BEAST.${APP_VERSION}.Linux.x86.tgz \
+    && rm BEAST.${APP_VERSION}.Linux.x86.tgz \
+    && mv beast/bin/* /usr/local/bin \
+    && mv beast/lib/* /usr/local/lib \
+    && mv beast/jre /usr/local \
+    && rm -rf beast \
+    && git clone --depth=1 --branch=${BEAGLE_VERSION} https://github.com/beagle-dev/beagle-lib.git \
+    && cd /usr/beagle-lib \
+    && mkdir build \
+    && cd build \
+    && cmake .. \
+    && make install \
+    && ldconfig \
+    && cd /usr \
+    && rm -rf /usr/beagle-lib \
+    && packagemanager -add BADTRIP -dir /usr/local/lib \
+    && packagemanager -add PoMo -dir /usr/local/lib \
+    && packagemanager -add phylodynamics -dir /usr/local/lib \
+    && packagemanager -add PhyDyn -dir /usr/local/lib \
+    && packagemanager -add BEAST_CLASSIC -dir /usr/local/lib \
+    && packagemanager -add Babel -dir /usr/local/lib \
+    && packagemanager -add MultiTypeTree -dir /usr/local/lib \
+    && packagemanager -add Recombination -dir /usr/local/lib \
+    && packagemanager -add ReMASTER -dir /usr/local/lib \
+    && packagemanager -add feast -dir /usr/local/lib \
+    && packagemanager -add ORC -dir /usr/local/lib \
+    && packagemanager -add starbeast3 -dir /usr/local/lib \
+    && chmod -R +x /usr/local/bin \
+    && chmod -R +x /usr/local/jre \  
+    && chmod -R +rwx /usr/local/lib \
+    && chmod -R +rwx /usr/local/workspace \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/downloaded_packages 
+
+ENV BEAST_PACKAGE_PATH=/usr/local/lib
+
+WORKDIR /usr/local/workspace
+
+EXPOSE 5900
+
+CMD [ "beast" ]

@@ -1,0 +1,11 @@
+Bootstrap: docker
+From: ghcr.io/jbris/beast2:v2.7.5
+
+%labels
+    Version v2.7.5
+    
+%help
+    This is an image to run BEAST2.
+
+%runscript
+    exec beast "$@"

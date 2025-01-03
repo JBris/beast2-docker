@@ -2,4 +2,4 @@
 
 . .env
 
-apptainer build beast2.sif Apptainer.${APP_VERSION} $@
+apptainer build beast2.sif apptainer/Apptainer.${APP_VERSION} $@

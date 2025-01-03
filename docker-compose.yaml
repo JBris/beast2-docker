@@ -6,7 +6,7 @@ services:
     image: ghcr.io/jbris/beast2:${APP_VERSION}
     build:
       context: .
-      dockerfile: Dockerfile.${APP_VERSION}
+      dockerfile: dockerfiles/Dockerfile.${APP_VERSION}
       args:
         APP_VERSION: $APP_VERSION
         BEAGLE_VERSION: $BEAGLE_VERSION
