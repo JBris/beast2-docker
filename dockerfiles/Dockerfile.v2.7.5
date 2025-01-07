@@ -66,6 +66,11 @@ RUN apt-get update \
     && packagemanager -add feast -dir /usr/local/lib \
     && packagemanager -add ORC -dir /usr/local/lib \
     && packagemanager -add starbeast3 -dir /usr/local/lib \
+    && packagemanager -add OBAMA -dir /usr/local/lib \
+    && packagemanager -add MODEL_SELECTION -dir /usr/local/lib \
+    && packagemanager -add EpiInf -dir /usr/local/lib \
+    && packagemanager -add CoalRe -dir /usr/local/lib \
+    && packagemanager -add snapper -dir /usr/local/lib \
     && chmod -R +x /usr/local/bin \
     && chmod -R +x /usr/local/jre \  
     && chmod -R +rwx /usr/local/lib \
