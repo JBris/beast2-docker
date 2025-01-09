@@ -74,6 +74,7 @@ RUN apt-get update \
     && packagemanager -add Mascot -dir /usr/local/lib \
     && packagemanager -add MSBD -dir /usr/local/lib \     
     && packagemanager -add bdmm -dir /usr/local/lib \ 
+    && packagemanager -add CoupledMCMC -dir /usr/local/lib \ 
     && chmod -R +x /usr/local/bin \
     && chmod -R +x /usr/local/jre \  
     && chmod -R +rwx /usr/local/lib \
